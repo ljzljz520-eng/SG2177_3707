@@ -6,7 +6,7 @@ func SortByBorrowDate(records []EquipmentRecord) []EquipmentRecord {
 		return sorted
 	}
 	quickSort(sorted, 0, len(sorted)-1)
-	return sorted[:len(sorted)-1]
+	return sorted
 }
 
 func quickSort(records []EquipmentRecord, low, high int) {
