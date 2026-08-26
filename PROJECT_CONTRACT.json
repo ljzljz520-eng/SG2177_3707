@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 2318,
+    "production_files": 30,
+    "production_packages": 8,
+    "test_files": 9,
+    "production_functions": 189,
+    "decision_points": 344
+  },
+  "persistence": {
+    "module": "modernc.org/sqlite",
+    "entities": [
+      "EquipmentRecord",
+      "DoublyLinkedList",
+      "EquipmentStore",
+      "AuditEntry"
+    ],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {
+      "steps": [
+        "接收器材编号、名称、借用人和日期",
+        "校验字段与日期格式",
+        "尾插链表并保存",
+        "返回记录和审计结果"
+      ],
+      "test": "TestPrimaryWorkflow"
+    },
+    {
+      "steps": [
+        "加载持久化记录",
+        "重建双向链表",
+        "按借用人过滤",
+        "返回展示结果"
+      ],
+      "test": "TestSecondaryWorkflow"
+    },
+    {
+      "steps": [
+        "读取链表快照",
+        "选择编号或日期排序策略",
+        "执行排序更新列表",
+        "验证数量和末项"
+      ],
+      "test": "TestEquipmentSortKeepsAll"
+    },
+    {
+      "steps": [
+        "写入记录审计设置",
+        "关闭SQLite",
+        "重新打开存储",
+        "读取并核对实体"
+      ],
+      "test": "TestPersistenceSurvivesReopen"
+    }
+  ]
+}
